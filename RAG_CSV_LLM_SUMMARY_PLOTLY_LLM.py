@@ -37,7 +37,7 @@ lc_llm = ChatOpenAI(model="gpt-4.1-mini", temperature=0)
 # ---------------------------------------------------------
 # Hardcoded CSV path
 # ---------------------------------------------------------
-CSV_PATH = "/Users/I353375/Downloads/Incidents_p1_p2_missing_value_handeled_enriched.csv"
+CSV_PATH = "Incidents_p1_p2_missing_value_handeled_enriched.csv"
 
 try:
     df = pd.read_csv(CSV_PATH)
