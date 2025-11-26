@@ -179,7 +179,14 @@ langchain
 langchain-openai
 plotly
 reportlab
-
+streamlit
+pandas
+python-dotenv
+openai>=1.0.0
+langchain
+langchain-openai
+plotly
+reportlab
 # -----------------------------------------------------------------------------
 # Windows-specific dependency
 # pywin32==310; sys_platform == 'win32'
