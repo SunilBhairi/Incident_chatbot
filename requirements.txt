@@ -187,6 +187,7 @@ langchain
 langchain-openai
 plotly
 reportlab
+matplotlib
 # -----------------------------------------------------------------------------
 # Windows-specific dependency
 # pywin32==310; sys_platform == 'win32'
