@@ -379,6 +379,46 @@ mask_prb = df['PRBNumber'].astype(str).str.upper() == prb_number.upper()
 result = df[mask_prb]
 
 ----------------------------------------------
+--------------------------------------------
+### "THIS WEEK" (ISO Week) DETECTION LOGIC
+
+If the user query contains:
+- "this week"
+- "current week"
+- "week to date"
+- "this iso week"
+
+You MUST generate the following logic:
+
+(Assume df is already loaded)
+
+# Ensure Date_parsed is datetime
+df['Date_parsed'] = pd.to_datetime(df['Date_parsed'], errors='coerce')
+
+# Interpret "this week" relative to the dataset, not system clock
+date_series = df['Date_parsed']
+max_date = date_series.max()
+
+# Extract ISO year + ISO week
+iso_year, iso_week, _ = max_date.isocalendar()
+
+# Build week and year filters
+week_mask = date_series.dt.isocalendar().week == iso_week
+year_mask = date_series.dt.isocalendar().year == iso_year
+
+# If user mentions P1 explicitly:
+mask_p1 = (df['Priority'] == 'P1')
+
+# Combine detected filters with any other masks (human error, LMS, ticket, etc.)
+result = df[week_mask & year_mask & mask_p1]
+
+IMPORTANT RULES:
+- ALWAYS use df['Date_parsed'] for date operations
+- ALWAYS determine the "current" week from df (max date)
+- ALWAYS combine with other masks if query mentions other conditions
+- ALWAYS name the final dataframe: result
+--------------------------------------------
+-----------------------------------------------
 
 If the query mentions "this year" use below mentioned code template:
 
